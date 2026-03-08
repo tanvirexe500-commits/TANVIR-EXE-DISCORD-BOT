@@ -17,8 +17,9 @@ def home():
     return "TANVIR EXE PREMIUM IS ONLINE"
 
 def run():
-    # Render সাধারণত 8080 বা 10000 পোর্টে চলে
-    app.run(host='0.0.0.0', port=8080)
+    # Render-এর পোর্ট ডাইনামিকভাবে ধরার জন্য
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host='0.0.0.0', port=port)
 
 def keep_alive():
     t = Thread(target=run)
@@ -224,7 +225,7 @@ async def add(ctx, uid: str = None, dur: str = None):
         )
         embed.add_field(name="👤 UID", value=f"`{uid}`", inline=True)
         embed.add_field(name="📅 Duration", value=f"`{dur.upper()}`", inline=True)
-        embed.add_field(name="⌛ Expires", value=expiry_info, inline=False)
+        embed.add_field(name="⏳ Expires", value=expiry_info, inline=False)
         
         embed.set_thumbnail(url=bot.user.display_avatar.url)
         embed.set_footer(text="TANVIR EXE • Admin Action", icon_url=bot.user.display_avatar.url)
@@ -273,5 +274,8 @@ async def check(ctx, uid: str = None):
 # RUN BOT
 # ────────────────────────────────────────────────
 if __name__ == "__main__":
-    keep_alive() # সার্ভারটি চালু করবে
-    bot.run(TOKEN)
+    keep_alive() 
+    if TOKEN:
+        bot.run(TOKEN)
+    else:
+        print("Error: BOT_TOKEN environment variable not found.")
