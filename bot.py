@@ -5,6 +5,7 @@ import asyncio
 from datetime import datetime, timezone, timedelta
 from flask import Flask
 from threading import Thread
+import os
 
 # ────────────────────────────────────────────────
 # RENDER KEEP ALIVE SERVER
@@ -26,10 +27,9 @@ def keep_alive():
 # ────────────────────────────────────────────────
 # CONFIGURATION - TANVIR EXE (PREMIUM)
 # ────────────────────────────────────────────────
-TOKEN = "MTQ3NDQ0NjAwNDM2NjYxMDc3Nw.GCGxPa.di_C1XxMLCKfAQgPEz07vo2e4Od14eUAJFRg9s" 
-
+TOKEN = os.environ.get("BOT_TOKEN") 
 API_BASE = "http://46.250.239.109:6001/api"
-COOKIE_VALUE = ".eJyrVoovSC3KTcxLzStRsiopKk3VUSrKz0lVslIqLU4tUtIBU_GZKUpWRgZGEF5eYi5IPs-gLDE-I7VCqRYAP14XTw.aa0L4A.X9I-0xcVM1yjXODjdiHutIxSJeQ"
+COOKIE_VALUE = os.environ.get("SESSION_COOKIE")
 
 HEADERS = {
     "Content-Type": "application/json",
